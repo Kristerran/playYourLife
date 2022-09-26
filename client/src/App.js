@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-
+import Sliders from './components/Sliders.js';
 function App() {
   return (
     <div className="App">
@@ -18,32 +18,7 @@ function App() {
           Learn React
         </a>
       </header>
-      <div>
-        <h1>WELCOME TO PYL</h1>
-        <ul>
-          <h3>Starting stats for day</h3>
-          <li>
-            <h5>Stress</h5>
-            <input type="range" min="0" max="200" />
-          </li>
-          <li>
-            <h5>Energy</h5>
-            <input type="range" min="0" max="200" />
-          </li>
-          <li>
-            <h5>Social</h5>
-            <input type="range" min="0" max="200" />
-          </li>
-          <li>
-            <h5>Fun</h5>
-            <input type="range" min="0" max="200" />
-          </li>
-          <li>
-            <h5>hygene</h5>
-            <input type="range" min="0" max="200" />
-          </li>
-        </ul>
-      </div>
+      <Sliders />
     </div>
   );
 }
