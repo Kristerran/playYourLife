@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
-const characterSchema = new Schema({
+const slidersSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -18,9 +18,9 @@ const characterSchema = new Schema({
     required: true,
     default: 1,
   },
-  journal: [{ type: Schema.Types.ObjectId, ref: "JournalEntry" }],
+  journal: [{ type: Schema.Types.ObjectId, ref: 'JournalEntry' }],
 });
 
-const Character = model("Character", characterSchema);
+const Sliders = model('Sliders', slidersSchema);
 
-module.exports = Character;
+module.exports = Sliders;

@@ -13,7 +13,9 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    characters: [{ type: Schema.Types.ObjectId, ref: 'Character' }],
+    sliders: [{ type: Schema.Types.ObjectId, ref: 'Sliders' }],
+    currentQuests: [{ type: Schema.Types.ObjectId, ref: 'Quest' }],
+    completedQuests: [{ type: Schema.Types.ObjectId, ref: 'Quest' }],
   },
   // set this to use virtual below
   {

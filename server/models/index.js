@@ -1,5 +1,6 @@
-const User = require("./User");
-const Character = require("./Character");
-const JournalEntry = require("./JournalEntry");
+const User = require('./User');
+const Sliders = require('./Sliders');
+const Quest = require('./Quest');
+const Probability = require('./Probability');
 
-module.exports = { User, Character, JournalEntry };
+module.exports = { User, Sliders, Quest, Probability };
