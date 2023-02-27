@@ -1,24 +1,31 @@
 const { Schema, model } = require('mongoose');
 
 const slidersSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  race: {
-    type: String,
-    required: true,
-  },
-  className: {
-    type: String,
-    required: true,
-  },
-  level: {
+  stress: {
     type: Number,
     required: true,
-    default: 1,
+    default: 100,
   },
-  journal: [{ type: Schema.Types.ObjectId, ref: 'JournalEntry' }],
+  energy: {
+    type: Number,
+    required: true,
+    default: 100,
+  },
+  social: {
+    type: Number,
+    required: true,
+    default: 100,
+  },
+  fun: {
+    type: Number,
+    required: true,
+    default: 100,
+  },
+  selfCare: {
+    type: Number,
+    required: true,
+    default: 100,
+  },
 });
 
 const Sliders = model('Sliders', slidersSchema);

@@ -4,28 +4,26 @@ const typeDefs = gql`
   type User {
     _id: ID
     email: String
-    characters: [Character]
+    sliders: [Sliders]
   }
 
-  type Journal {
-    journal: [JournalEntry]
-  }
-
-  type JournalEntry {
-    _id: ID
-    title: String
-    session: String
-    contents: String
-    tags: String
-  }
-
-  type Character {
-    _id: ID
+  type Quest {
     name: String
-    race: String
-    className: String
-    level: Int
-    journal: [JournalEntry]
+    contents: String
+    probability: [Probability]
+  }
+
+  type Sliders {
+    _id: ID
+    stress: Int
+    energy: Int
+    social: Int
+    fun: Int
+    selfCare: Int
+  }
+
+  type Probability {
+    _id: ID
   }
 
   type Auth {
@@ -37,11 +35,10 @@ const typeDefs = gql`
     users: [User]!
     user(userId: ID!): User
     me: User
-    characters(userId: ID!): [Character]
-    journals(characterId: ID!): [Journal]
-    currentCharacters: [Character]
-    character(characterId: ID!): Character
-    journal(journalId: ID!): Journal
+    sliders(userId: ID!): Sliders
+    quests: [Quest]
+    questProbability(questId: ID!): Probability
+    quest(questId: ID!): Quest
   }
 
   type Mutation {
@@ -49,43 +46,17 @@ const typeDefs = gql`
 
     login(email: String!, password: String!): Auth
 
-    addCharacter(
-      name: String!
-      race: String!
-      className: String!
-      level: Int
-    ): Character
-
-    addJournalEntry(
-      characterId: ID!
-      title: String!
-      session: String!
-      contents: String!
-      tags: [String]
-    ): Journal
+    addSliders(
+      stress: Int!
+      energy: Int!
+      social: Int!
+      fun: Int!
+      selfCare: Int!
+    ): Sliders
 
     removeUser(userId: ID!): User
 
-    removeCharacter(characterId: ID!): Character
-
-    removeJournal(journalId: ID!): Journal
-
     updateUser(email: String, password: String): User
-
-    updateCharacter(
-      characterId: ID!
-      name: String
-      race: String
-      level: Int
-    ): Character
-
-    updateJournal(
-      journalId: ID!
-      title: String
-      session: String
-      contents: String
-      tags: [String]
-    ): Journal
   }
 `;
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 export default function Sliders() {
   const [sliderValues, setSliders] = useState({
     stress: 100,
@@ -11,19 +10,21 @@ export default function Sliders() {
   const quests = [
     {
       name: 'low energy high stress',
-      stressLow: 150,
+      content: 'Stresso depresso... espresso',
+      stressLow: 100,
       stressHigh: 201,
       energyLow: -1,
       energyHigh: 50,
-      // socialLow: 50,
-      // socialHigh: 200,
-      // funLow: 20,
-      // funHigh: 200,
-      // selfCareLow: 1,
-      // selfCareHigh: 200,
+      socialLow: 50,
+      socialHigh: 200,
+      funLow: 20,
+      funHigh: 200,
+      selfCareLow: 1,
+      selfCareHigh: 200,
     },
     {
       name: 'I show up no matter what',
+      content: 'YOU CANT GET RID OF ME BITCH! IM NOT GOING NO WHEREEE',
       stressLow: -1,
       stressHigh: 201,
       energyLow: -1,
@@ -37,9 +38,10 @@ export default function Sliders() {
     },
     {
       name: 'Low stress high energy',
+      content: 'ZOOOOOOOOOM',
       stressLow: -1,
-      stressHigh: 90,
-      energyLow: 50,
+      stressHigh: 50,
+      energyLow: 100,
       energyHigh: 201,
       socialLow: -1,
       socialHigh: 201,
@@ -50,6 +52,8 @@ export default function Sliders() {
     },
     {
       name: 'You okay?',
+      content:
+        'you set all your values to the lowest extremes. If you are having a mental health emergency, here are some resources: LINK TO RESOURCES HERE',
       stressLow: 199,
       stressHigh: 201,
       energyLow: -1,
@@ -62,6 +66,21 @@ export default function Sliders() {
       selfCareHigh: 1,
     },
   ];
+  const [currentQuest, setCurrentQuest] = useState({
+    name: 'noQuestYet',
+    content:
+      'Hello user, bad news, actually... there is no game. I hope you are not too dissapointed. You can still watch tv, go for a walk...',
+    stressLow: 0,
+    stressHigh: 0,
+    energyLow: 0,
+    energyHigh: 0,
+    socialLow: 0,
+    socialHigh: 0,
+    funLow: 0,
+    funHigh: 0,
+    selfCareLow: 0,
+    selfCareHigh: 0,
+  });
   const onChange = (e) =>
     setSliders({ ...sliderValues, [e.target.name]: e.target.value });
   const submitSliders = () => {
@@ -89,8 +108,11 @@ export default function Sliders() {
         return;
       } else questOptions.push(element);
     });
-    let quest = questOptions[Math.floor(Math.random() * questOptions.length)];
-    console.log(quest.name);
+    let holdQuest =
+      questOptions[Math.floor(Math.random() * questOptions.length)];
+    setCurrentQuest(holdQuest);
+    console.log(questOptions);
+    console.log(currentQuest.name);
   };
   return (
     <div className="Sliders">
@@ -156,6 +178,8 @@ export default function Sliders() {
           <button onClick={submitSliders} />
         </ul>
       </div>
+      <h1>{currentQuest.name}</h1>
+      <h4>{currentQuest.content}</h4>
     </div>
   );
 }

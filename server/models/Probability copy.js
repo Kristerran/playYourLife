@@ -1,43 +1,23 @@
 const { Schema, model } = require('mongoose');
 
 const probabilitySchema = new Schema({
-  stressLow: {
+  stressReward: {
     type: Number,
     required: true,
   },
-  stressHigh: {
+  energyReward: {
     type: Number,
     required: true,
   },
-  energyLow: {
+  socialReward: {
     type: Number,
     required: true,
   },
-  energyHigh: {
+  funReward: {
     type: Number,
     required: true,
   },
-  socialLow: {
-    type: Number,
-    required: true,
-  },
-  socialHigh: {
-    type: Number,
-    required: true,
-  },
-  funLow: {
-    type: Number,
-    required: true,
-  },
-  funHigh: {
-    type: Number,
-    required: true,
-  },
-  selfCareLow: {
-    type: Number,
-    required: true,
-  },
-  selfCareHigh: {
+  selfCareReward: {
     type: Number,
     required: true,
   },
