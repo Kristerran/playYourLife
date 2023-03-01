@@ -1,6 +1,9 @@
-const { AuthenticationError } = require('apollo-server-express');
-const { User, Quest, Sliders, Probability } = require('../models');
-const { signToken } = require('../utils/auth');
+import { ApolloServer } from '@apollo/server';
+import { User } from '../models/User.js';
+import { Quest } from '../models/Quest.js';
+import { Sliders } from '../models/Sliders.js';
+import { Probability } from '../models/Probability.js';
+import { auth } from '../utils/auth.js';
 
 const resolvers = {
   Query: {
@@ -16,7 +19,13 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('sliders');
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new Apolloserver.AuthenticationError('You need to be logged in!');
+    },
+    quests: async () => {
+      return Quest.find();
+    },
+    quest: async (parents, { questId }) => {
+      return Quest.findOne({ _id: questId });
     },
   },
 
@@ -29,6 +38,37 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    addQuest: async (
+      title,
+      contents,
+      stressLow,
+      stressHigh,
+      energyLow,
+      energyHigh,
+      socialLow,
+      socialHigh,
+      funLow,
+      funHigh,
+      selfCareLow,
+      selfCareHigh
+    ) => {
+      const quest = await Quest.create({
+        title,
+        contents,
+        stressLow,
+        stressHigh,
+        energyLow,
+        energyHigh,
+        socialLow,
+        socialHigh,
+        funLow,
+        funHigh,
+        selfCareLow,
+        selfCareHigh,
+      });
+
+      return { quest };
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email }).populate('sliders');
@@ -45,7 +85,7 @@ const resolvers = {
         throw new AuthenticationError('Incorrect password!');
       }
 
-      const token = signToken(user);
+      const token = auth.signToken(user);
       return { token, user };
     },
 
@@ -144,4 +184,4 @@ const resolvers = {
   },
 };
 
-module.exports = resolvers;
+export default resolvers;

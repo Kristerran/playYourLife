@@ -1,5 +1,4 @@
-const { Schema, model } = require('mongoose');
-
+import { Schema, model } from 'mongoose';
 const probabilitySchema = new Schema({
   stressLow: {
     type: Number,
@@ -45,4 +44,4 @@ const probabilitySchema = new Schema({
 
 const Probability = model('Probability', probabilitySchema);
 
-module.exports = Probability;
+export { Probability };

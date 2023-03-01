@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-export default function Sliders() {
+import { useQuery } from '@apollo/client';
+import React, { useState,} from 'react';
+import { QUESTS } from '../utils/queries';
+const Sliders = () => {
   const [sliderValues, setSliders] = useState({
     stress: 100,
     energy: 100,
@@ -7,65 +9,7 @@ export default function Sliders() {
     fun: 100,
     selfCare: 100,
   });
-  const quests = [
-    {
-      name: 'low energy high stress',
-      content: 'Stresso depresso... espresso',
-      stressLow: 100,
-      stressHigh: 201,
-      energyLow: -1,
-      energyHigh: 50,
-      socialLow: 50,
-      socialHigh: 200,
-      funLow: 20,
-      funHigh: 200,
-      selfCareLow: 1,
-      selfCareHigh: 200,
-    },
-    {
-      name: 'I show up no matter what',
-      content: 'YOU CANT GET RID OF ME BITCH! IM NOT GOING NO WHEREEE',
-      stressLow: -1,
-      stressHigh: 201,
-      energyLow: -1,
-      energyHigh: 201,
-      socialLow: -1,
-      socialHigh: 201,
-      funLow: -1,
-      funHigh: 201,
-      selfCareLow: -1,
-      selfCareHigh: 201,
-    },
-    {
-      name: 'Low stress high energy',
-      content: 'ZOOOOOOOOOM',
-      stressLow: -1,
-      stressHigh: 50,
-      energyLow: 100,
-      energyHigh: 201,
-      socialLow: -1,
-      socialHigh: 201,
-      funLow: -1,
-      funHigh: 201,
-      selfCareLow: -1,
-      selfCareHigh: 201,
-    },
-    {
-      name: 'You okay?',
-      content:
-        'you set all your values to the lowest extremes. If you are having a mental health emergency, here are some resources: LINK TO RESOURCES HERE',
-      stressLow: 199,
-      stressHigh: 201,
-      energyLow: -1,
-      energyHigh: 1,
-      socialLow: -1,
-      socialHigh: 1,
-      funLow: -1,
-      funHigh: 1,
-      selfCareLow: -1,
-      selfCareHigh: 1,
-    },
-  ];
+
   const [currentQuest, setCurrentQuest] = useState({
     name: 'noQuestYet',
     content:
@@ -85,6 +29,7 @@ export default function Sliders() {
     setSliders({ ...sliderValues, [e.target.name]: e.target.value });
   const submitSliders = () => {
     const questOptions = [];
+    const quests = [];
     quests.forEach((element) => {
       if (sliderValues.stress < element.stressLow) {
         return;
@@ -114,6 +59,9 @@ export default function Sliders() {
     console.log(questOptions);
     console.log(currentQuest.name);
   };
+  const { loading, data, error } = useQuery(QUESTS, {});
+  if (loading) return 'Updating Characters';
+  if (error) return 'Crit failure, try again';
   return (
     <div className="Sliders">
       <div>
@@ -182,4 +130,6 @@ export default function Sliders() {
       <h4>{currentQuest.content}</h4>
     </div>
   );
-}
+};
+
+export default Sliders;

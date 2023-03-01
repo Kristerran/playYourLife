@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const slidersSchema = new Schema({
   stress: {
@@ -30,4 +30,4 @@ const slidersSchema = new Schema({
 
 const Sliders = model('Sliders', slidersSchema);
 
-module.exports = Sliders;
+export { Sliders };

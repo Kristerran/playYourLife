@@ -3,18 +3,21 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon server.js"
+    "watch": "nodemon server.js",
+    "seed": "node config/seeds.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^3.6.3",
+    "@apollo/server": "^4.4.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.3",
     "graphql": "^16.3.0",
+    "graphql-tag": "^2.12.6",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.4"
   },

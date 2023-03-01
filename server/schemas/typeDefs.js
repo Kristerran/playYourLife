@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+import gql from 'graphql-tag';
 
 const typeDefs = gql`
   type User {
@@ -8,9 +8,18 @@ const typeDefs = gql`
   }
 
   type Quest {
-    name: String
+    title: String
     contents: String
-    probability: [Probability]
+    stressLow: Int
+    stressHigh: Int
+    energyLow: Int
+    energyHigh: Int
+    socialLow: Int
+    socialHigh: Int
+    funLow: Int
+    funHigh: Int
+    selfCareLow: Int
+    selfCareHigh: Int
   }
 
   type Sliders {
@@ -20,10 +29,6 @@ const typeDefs = gql`
     social: Int
     fun: Int
     selfCare: Int
-  }
-
-  type Probability {
-    _id: ID
   }
 
   type Auth {
@@ -37,13 +42,25 @@ const typeDefs = gql`
     me: User
     sliders(userId: ID!): Sliders
     quests: [Quest]
-    questProbability(questId: ID!): Probability
     quest(questId: ID!): Quest
   }
 
   type Mutation {
     addUser(email: String!, password: String!): Auth
-
+    addQuest(
+      title: String
+      contents: String
+      stressLow: Int
+      stressHigh: Int
+      energyLow: Int
+      energyHigh: Int
+      socialLow: Int
+      socialHigh: Int
+      funLow: Int
+      funHigh: Int
+      selfCareLow: Int
+      selfCareHigh: Int
+    ): Auth
     login(email: String!, password: String!): Auth
 
     addSliders(
@@ -60,4 +77,4 @@ const typeDefs = gql`
   }
 `;
 
-module.exports = typeDefs;
+export default typeDefs;

@@ -1,5 +1,4 @@
-const { Schema, model } = require('mongoose');
-
+import { Schema, model } from 'mongoose';
 const questSchema = new Schema({
   title: {
     type: String,
@@ -9,9 +8,48 @@ const questSchema = new Schema({
     type: String,
     required: true,
   },
-  probabilities: [{ type: Schema.Types.ObjectId, ref: 'Probability' }],
+  stressLow: {
+    type: Number,
+    required: true,
+  },
+  stressHigh: {
+    type: Number,
+    required: true,
+  },
+  energyLow: {
+    type: Number,
+    required: true,
+  },
+  energyHigh: {
+    type: Number,
+    required: true,
+  },
+  socialLow: {
+    type: Number,
+    required: true,
+  },
+  socialHigh: {
+    type: Number,
+    required: true,
+  },
+  funLow: {
+    type: Number,
+    required: true,
+  },
+  funHigh: {
+    type: Number,
+    required: true,
+  },
+  selfCareLow: {
+    type: Number,
+    required: true,
+  },
+  selfCareHigh: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Quest = model('Quest', questSchema);
 
-module.exports = Quest;
+export { Quest };
