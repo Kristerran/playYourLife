@@ -11,7 +11,7 @@ export const ME = gql`
 
 export const QUESTS = gql`
   query quests {
-    quest {
+    quests {
       _id
       title
       contents
