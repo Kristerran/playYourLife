@@ -1,6 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import Sliders from './components/Sliders.js';
+import Landing from './components/pages/Landing.js';
+import Sliders from './components/pages/Sliders.js';
+import Quests from './components/pages/Quests';
+import SignIn from './components/pages/SignIn.js';
+import Signup from './components/pages/Signup';
 import {
   ApolloProvider,
   ApolloClient,
@@ -8,6 +11,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -26,11 +30,19 @@ const client = new ApolloClient({
 });
 function App() {
   return (
-    <div className="App">
-      <ApolloProvider client={client}>
-        <Sliders />
-      </ApolloProvider>
-    </div>
+    <Router>
+      <div className="App">
+        <ApolloProvider client={client}>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/sliders" element={<Sliders />} />
+            <Route path="/quests" element={<Quests />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </ApolloProvider>
+      </div>
+    </Router>
   );
 }
 

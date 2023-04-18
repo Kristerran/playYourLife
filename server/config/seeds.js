@@ -1,4 +1,4 @@
-import db from './connection';
+import db from './connection.js';
 import { User, Quest, Probability } from '../models/index.js';
 
 db.once('open', async () => {
@@ -19,8 +19,9 @@ db.once('open', async () => {
   await Quest.deleteMany();
 
   await Quest.create({
-    title: 'I show up no matter what',
-    contents: "YOU CAN'T GET RID OF ME B#$% I'M NOT GOING TO F#%ING WHERE!",
+    title: 'Drink some water',
+    contents:
+      'Anyone can use a drink of water no matter their stats. try a glass now and see how you feel.',
     stressLow: -1,
     stressHigh: 201,
     energyLow: -1,
@@ -33,9 +34,10 @@ db.once('open', async () => {
     selfCareHigh: 201,
   });
   await Quest.create({
-    title: 'I show up no matter what #2',
-    contents: 'YO CHECK IT OUT MULTIPLE QUESTS ARE YOU ENJOYING IT YET?!',
-    stressLow: -1,
+    title: 'Take a bath',
+    contents:
+      'Your stats indicate you are stressed and your self care is low. Take a relaxing bath to de-stress and take care of your body.',
+    stressLow: 120,
     stressHigh: 201,
     energyLow: -1,
     energyHigh: 201,
@@ -44,7 +46,7 @@ db.once('open', async () => {
     funLow: -1,
     funHigh: 201,
     selfCareLow: -1,
-    selfCareHigh: 201,
+    selfCareHigh: 80,
   });
 
   console.log('Quests seeded');

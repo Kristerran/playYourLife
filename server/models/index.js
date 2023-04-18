@@ -1,9 +1,9 @@
-const User = require('./User');
-const Sliders = require('./Sliders');
-const Quest = require('./Quest');
-const Probability = require('./Probability');
+import { User } from './User.js';
+import { Sliders } from './Sliders.js';
+import { Quest } from './Quest.js';
+import { Probability } from './Probability.js';
 
-export const User = 'User';
-export const Sliders = 'Sliders';
-export const Quest = 'Quest';
-export const Probability = 'Probability';
+export { User };
+export { Sliders };
+export { Quest };
+export { Probability };

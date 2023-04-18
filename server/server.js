@@ -1,37 +1,3 @@
-// const { json } = require('body-parser');
-// require('dotenv').config();
-// const { typeDefs, resolvers } = require('./schemas');
-// // Import `authMiddleware()` function to be configured with the Apollo Server
-// const { authMiddleware } = require('./utils/auth');
-// const db = require('./config/connection');
-// const PORT = process.env.PORT || 3001;
-// const app = express();
-
-// async function startApollo() {
-//   const server = new ApolloServer({
-//     typeDefs,
-//     resolvers,
-//     context: authMiddleware,
-//   });
-
-//   await server.start();
-//   app.use(
-//     '/graphql',
-//     cors(),
-//     json(),
-//     expressMiddleware(server, {
-//       context: async ({ req }) => ({ token: req.headers.token }),
-//     })
-//   );
-//   console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-// }
-// startApollo();
-
-// app.use(express.urlencoded({ extended: false }));
-// app.use(express.json());
-
-// app.use('/public', express.static(path.join(__dirname, '../client/public')));
-
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
@@ -43,6 +9,7 @@ import dotenv from 'dotenv';
 import typeDefs from './schemas/typeDefs.js';
 import resolvers from './schemas/resolvers.js';
 import db from './config/connection.js';
+const PORT = process.env.PORT || 3001;
 const app = express();
 const httpServer = http.createServer(app);
 const server = new ApolloServer({

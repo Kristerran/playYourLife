@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React, { useState } from 'react';
-import { QUESTS } from '../utils/queries';
+import { QUESTS } from '../../utils/queries';
 import Slider from '@mui/material/Slider';
 const Sliders = () => {
   const styles = {
@@ -61,7 +61,8 @@ const Sliders = () => {
     const quests = data.quests;
     console.log(quests);
     quests.forEach((element) => {
-      console.log(sliderValues);
+      // loop over all quests, check if values are above lowest range for quest and below highest range otherwise do not add quest to daily quests
+
       if (sliderValues.stress < element.stressLow) {
         return;
       } else if (sliderValues.stress > element.stressHigh) {
@@ -90,14 +91,19 @@ const Sliders = () => {
     setCurrentQuest(holdQuest);
     console.log(questOptions);
     console.log(currentQuest);
+
+    // next, need to push quest options and current quest to USER
+
+    //Redirect user to quests page until tomorrow.
   };
 
   return (
     <div className="Sliders">
-      <h1>WELCOME TO PYL</h1>
-      <h3>Starting stats for day</h3>
-
+      <h1>Good morning!</h1>
+      <h3>Before we embark on our journey today, take a moment.</h3>
+      <h3>How are you feeling today?</h3>
       <div className="sliderContainer" style={styles.sliderContainerStyle}>
+        {/* Range sliders for user to choose "stats" for the day. Values are stored in "slider values" state.*/}
         <div className="stressSlider" style={styles.sliderStyle}>
           <h5>Stress</h5>
           <Slider
@@ -109,15 +115,6 @@ const Sliders = () => {
             name="stress"
             value={sliderValues.stress}
           />
-          {/* <input
-            style={styles.inputStyle}
-            type="range"
-            min="0"
-            max="200"
-            onChange={onChange}
-            name="stress"
-            value={sliderValues.stress}
-          /> */}
         </div>
         <div className="energySlider" style={styles.sliderStyle}>
           <h5>Energy</h5>
@@ -131,27 +128,9 @@ const Sliders = () => {
             name="energy"
             value={sliderValues.energy}
           />
-          {/* <input
-            style={styles.inputStyle}
-            type="range"
-            min="0"
-            max="200"
-            onChange={onChange}
-            name="energy"
-            value={sliderValues.energy}
-          /> */}
         </div>
         <div className="socialSlider" style={styles.sliderStyle}>
           <h5>Social</h5>
-          {/* <input
-            style={styles.inputStyle}
-            type="range"
-            min="0"
-            max="200"
-            onChange={onChange}
-            name="social"
-            value={sliderValues.social}
-          /> */}
           <Slider
             min={0}
             max={200}
@@ -173,15 +152,6 @@ const Sliders = () => {
             name="fun"
             value={sliderValues.fun}
           />
-          {/* <input
-            style={styles.inputStyle}
-            type="range"
-            min="0"
-            max="200"
-            onChange={onChange}
-            name="fun"
-            value={sliderValues.fun}
-          /> */}
         </div>
         <div className="selfCareSlider" style={styles.sliderStyle}>
           <h5>Self Care</h5>
@@ -194,15 +164,6 @@ const Sliders = () => {
             name="selfCare"
             value={sliderValues.selfCare}
           />
-          {/* <input
-            style={styles.inputStyle}
-            type="range"
-            min="0"
-            max="200"
-            onChange={onChange}
-            name="selfCare"
-            value={sliderValues.selfCare}
-          /> */}
         </div>
       </div>
       <button onClick={submitSliders}>Submit</button>

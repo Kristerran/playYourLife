@@ -8,6 +8,7 @@ const typeDefs = gql`
   }
 
   type Quest {
+    _id: ID
     title: String
     contents: String
     stressLow: Int
