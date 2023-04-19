@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client';
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { QUESTS } from '../../utils/queries';
 import Slider from '@mui/material/Slider';
@@ -99,7 +100,19 @@ const Sliders = () => {
 
   return (
     <div className="Sliders">
-      <h1>Good morning!</h1>
+      <h1>SLIDERS</h1>
+      <div>
+        <Link to="/">LANDING</Link>
+      </div>
+      <div>
+        <Link to="/quests">QUESTS</Link>
+      </div>
+      <div>
+        <Link to="/signin">SIGNIN</Link>
+      </div>
+      <div>
+        <Link to="/signup">SIGNUP</Link>
+      </div>
       <h3>Before we embark on our journey today, take a moment.</h3>
       <h3>How are you feeling today?</h3>
       <div className="sliderContainer" style={styles.sliderContainerStyle}>
