@@ -175,8 +175,19 @@ const resolvers = {
           {
             email: email,
             password: password,
-          },
-          { new: true }
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    updateDailyQuests: async (parent, { dailyQuests }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            dailyQuests: [Quest],
+          }
         );
       }
       throw new AuthenticationError('You need to be logged in!');

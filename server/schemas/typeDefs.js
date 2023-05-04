@@ -75,6 +75,7 @@ const typeDefs = gql`
     removeUser(userId: ID!): User
 
     updateUser(email: String, password: String): User
+    updateDailyQuests(dailyQuests: [ID]!): User
   }
 `;
 
