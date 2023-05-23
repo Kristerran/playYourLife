@@ -13,12 +13,7 @@ const Landing = () => {
         <div>
           <Link to="/quests">QUESTS</Link>
         </div>
-        <div>
-          <Link to="/signin">SIGNIN</Link>
-        </div>
-        <div>
-          <Link to="/signup">SIGNUP</Link>
-        </div>
+        <button onClick={() => Auth.logout()}>Logout</button>
       </div>
     );
   else {

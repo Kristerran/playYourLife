@@ -1,7 +1,9 @@
 import { useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { QUESTS } from '../../utils/queries';
+import { UPDATE_USER } from '../../utils/mutations';
 import Slider from '@mui/material/Slider';
 const Sliders = () => {
   const styles = {
@@ -33,7 +35,7 @@ const Sliders = () => {
     fun: 100,
     selfCare: 100,
   });
-
+  const [updateDailySliders, { err }] = useMutation(UPDATE_USER);
   const [currentQuest, setCurrentQuest] = useState({
     title: 'Welcome to Play your life!',
     contents:
@@ -93,6 +95,16 @@ const Sliders = () => {
     console.log(questOptions);
     console.log(currentQuest);
 
+    // update daily sliders
+    try {
+      const { data } = updateDailySliders({
+        variables: { ...sliderValues },
+      });
+
+      window.location.replace('/quests');
+    } catch (err) {
+      console.error(err);
+    }
     // next, need to push quest options and current quest to USER
 
     //Redirect user to quests page until tomorrow.

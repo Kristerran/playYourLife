@@ -1,8 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { User } from '../models/User.js';
 import { Quest } from '../models/Quest.js';
-import { Sliders } from '../models/Sliders.js';
-import { Probability } from '../models/Probability.js';
 import { auth } from '../utils/auth.js';
 
 const resolvers = {
@@ -17,7 +15,10 @@ const resolvers = {
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('sliders');
+        return User.findOne({ _id: context.user._id }).populate(
+          'dailyQuests',
+          'completedQuests'
+        );
       }
       throw new Apolloserver.AuthenticationError('You need to be logged in!');
     },
@@ -35,7 +36,7 @@ const resolvers = {
         email,
         password,
       });
-      const token = signToken(user);
+      const token = auth.signToken(user);
 
       return { token, user };
     },
@@ -181,17 +182,17 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
-    updateDailyQuests: async (parent, { dailyQuests }, context) => {
-      if (context.user) {
-        return User.findOneAndUpdate(
-          { _id: context.user._id },
-          {
-            dailyQuests: [Quest],
-          }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
+    // updateDailyQuests: async (parent, { dailyQuests }, context) => {
+    //   if (context.user) {
+    //     return User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       {
+    //         dailyQuests: [Quest],
+    //       }
+    //     );
+    //   }
+    //   throw new AuthenticationError('You need to be logged in!');
+    // },
   },
 };
 

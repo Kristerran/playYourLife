@@ -4,7 +4,13 @@ const typeDefs = gql`
   type User {
     _id: ID
     email: String
-    sliders: [Sliders]
+    stress: Int
+    energy: Int
+    social: Int
+    fun: Int
+    selfCare: Int
+    lastDaySlidersUpdated: String
+    dailyQuests: [ID]
   }
 
   type Quest {
@@ -23,15 +29,6 @@ const typeDefs = gql`
     selfCareHigh: Int
   }
 
-  type Sliders {
-    _id: ID
-    stress: Int
-    energy: Int
-    social: Int
-    fun: Int
-    selfCare: Int
-  }
-
   type Auth {
     token: ID!
     user: User
@@ -41,13 +38,21 @@ const typeDefs = gql`
     users: [User]!
     user(userId: ID!): User
     me: User
-    sliders(userId: ID!): Sliders
     quests: [Quest]
     quest(questId: ID!): Quest
   }
 
   type Mutation {
-    addUser(email: String!, password: String!): Auth
+    addUser(
+      email: String!
+      password: String!
+      stress: Int
+      energy: Int
+      social: Int
+      fun: Int
+      selfCare: Int
+      lastDateSlidersUpdated: String
+    ): Auth
     addQuest(
       title: String
       contents: String
@@ -64,18 +69,19 @@ const typeDefs = gql`
     ): Auth
     login(email: String!, password: String!): Auth
 
-    addSliders(
-      stress: Int!
-      energy: Int!
-      social: Int!
-      fun: Int!
-      selfCare: Int!
-    ): Sliders
-
     removeUser(userId: ID!): User
 
-    updateUser(email: String, password: String): User
-    updateDailyQuests(dailyQuests: [ID]!): User
+    updateUser(
+      email: String
+      password: String!
+      stress: Int
+      energy: Int
+      social: Int
+      fun: Int
+      selfCare: Int
+      lastDateSlidersUpdated: String
+      dailyQuests: [ID]
+    ): User
   }
 `;
 

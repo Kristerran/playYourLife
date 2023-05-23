@@ -9,6 +9,7 @@ import dotenv from 'dotenv';
 import typeDefs from './schemas/typeDefs.js';
 import resolvers from './schemas/resolvers.js';
 import db from './config/connection.js';
+import { auth } from './utils/auth.js';
 const PORT = process.env.PORT || 3001;
 const app = express();
 const httpServer = http.createServer(app);
@@ -16,6 +17,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  context: auth.authMiddleware,
 });
 await server.start();
 app.use(

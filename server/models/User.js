@@ -13,9 +13,26 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    sliders: [{ type: Schema.Types.ObjectId, ref: 'Sliders' }],
+    stress: {
+      type: Number,
+    },
+    energy: {
+      type: Number,
+    },
+    social: {
+      type: Number,
+    },
+    fun: {
+      type: Number,
+    },
+    selfCare: {
+      type: Number,
+    },
+    lastDaySlidersUpdated: {
+      type: Date,
+    },
     currentQuests: [{ type: Schema.Types.ObjectId, ref: 'Quest' }],
-    completedQuests: [{ type: Schema.Types.ObjectId, ref: 'Quest' }],
+    dailyQuests: [{ type: Schema.Types.ObjectId, ref: 'Quest' }],
   },
   // set this to use virtual below
   {
