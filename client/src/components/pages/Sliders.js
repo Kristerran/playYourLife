@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { QUESTS } from '../../utils/queries';
-import { UPDATE_USER } from '../../utils/mutations';
+import { UPDATE_DAILY_SLIDERS } from '../../utils/mutations';
 import Slider from '@mui/material/Slider';
 const Sliders = () => {
   const styles = {
@@ -35,7 +35,7 @@ const Sliders = () => {
     fun: 100,
     selfCare: 100,
   });
-  const [updateDailySliders, { err }] = useMutation(UPDATE_USER);
+  const [updateDailySliders, { err }] = useMutation(UPDATE_DAILY_SLIDERS);
   const [currentQuest, setCurrentQuest] = useState({
     title: 'Welcome to Play your life!',
     contents:
@@ -88,7 +88,8 @@ const Sliders = () => {
         return;
       } else questOptions.push(element);
     });
-
+    const todaysDate = Date();
+    console.log(todaysDate);
     let holdQuest =
       questOptions[Math.floor(Math.random() * questOptions.length)];
     setCurrentQuest(holdQuest);
@@ -98,10 +99,17 @@ const Sliders = () => {
     // update daily sliders
     try {
       const { data } = updateDailySliders({
-        variables: { ...sliderValues },
+        variables: {
+          stress: sliderValues.stress,
+          energy: sliderValues.energy,
+          social: sliderValues.social,
+          fun: sliderValues.fun,
+          selfCare: sliderValues.selfCare,
+          lastDateSlidersUpdated: todaysDate,
+        },
       });
 
-      window.location.replace('/quests');
+      // window.location.replace('/quests');
     } catch (err) {
       console.error(err);
     }

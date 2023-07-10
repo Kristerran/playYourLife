@@ -1,8 +1,10 @@
 import { ApolloServer } from '@apollo/server';
 import { User } from '../models/User.js';
 import { Quest } from '../models/Quest.js';
-import { auth } from '../utils/auth.js';
-
+import auth from '../utils/auth.js';
+import { GraphQLError } from 'graphql';
+const signToken = auth.signToken;
+const authMiddleware = auth.authMiddleware;
 const resolvers = {
   Query: {
     users: async () => {
@@ -14,13 +16,14 @@ const resolvers = {
     },
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate(
+      console.log(context.auth.user);
+      if (context.auth.user) {
+        return User.findOne({ _id: context.auth.user._id }).populate(
           'dailyQuests',
           'completedQuests'
         );
       }
-      throw new Apolloserver.AuthenticationError('You need to be logged in!');
+      throw new GraphQLError('You need to be logged in!');
     },
     quests: async () => {
       return Quest.find();
@@ -36,7 +39,7 @@ const resolvers = {
         email,
         password,
       });
-      const token = auth.signToken(user);
+      const token = signToken(user);
 
       return { token, user };
     },
@@ -72,103 +75,35 @@ const resolvers = {
       return { quest };
     },
     login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email }).populate('sliders');
+      const user = await User.findOne({ email }).populate(
+        'currentQuests',
+        'completedQuests'
+      );
 
       if (!user) {
         //We need to change these messages
-        throw new AuthenticationError('No profile with this email found!');
+        throw new GraphQLError('No profile with this email found!');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
         //Change here as well
-        throw new AuthenticationError('Incorrect password!');
+        throw new GraphQLError('Incorrect password!');
       }
 
-      const token = auth.signToken(user);
+      const token = signToken(user);
       return { token, user };
     },
 
-    // Add a third argument to the resolver to access data in our `context`
-    // addCharacter: async (parent, { name, race, className, level }, context) => {
-    //   // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
-    //   if (context.user) {
-    //     // var id = '624bc1198ae0b8bd3f2f7f6d';
-    //     var character = await Character.create({
-    //       name: name,
-    //       race: race,
-    //       className: className,
-    //       level: level,
-    //     });
-
-    //     var user = await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       // { _id: id },
-    //       {
-    //         $push: {
-    //           characters: character,
-    //         },
-    //       },
-    //       {
-    //         new: true,
-    //         runValidators: true,
-    //       }
-    //     );
-    //     return character;
-    //   }
-    //   // If user attempts to execute this mutation and isn't logged in, throw an error
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    // addJournalEntry: async (
-    //   parent,
-    //   { characterId, title, session, contents, tags },
-    //   context
-    // ) => {
-    //   // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
-    //   if (context.user) {
-    //     const journalEntry = await JournalEntry.create({
-    //       title,
-    //       session,
-    //       contents,
-    //       tags,
-    //     });
-    //     const character = await Character.findOneAndUpdate(
-    //       { _id: characterId },
-    //       {
-    //         $push: {
-    //           journal: journalEntry,
-    //         },
-    //       },
-    //       {
-    //         new: true,
-    //         runValidators: true,
-    //       }
-    //     ).populate('journal');
-    //     return { journal: character.journal };
-    //   }
-    //   // If user attempts to execute this mutation and isn't logged in, throw an error
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    // Set up mutation so a logged in user can only remove their profile and no one else's
     removeUser: async (parent, args, context) => {
+      console.log(context);
       if (context.user) {
         return User.findOneAndDelete({ _id: context.user._id });
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new GraphQLError('You need to be logged in!');
     },
-    // Make it so a logged in user can only remove a tier list from their own profile
-    // removeQuest: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { quests: [] },
-    //       { new: true }
-    //     );
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
-    // Allow a user to update their profile information, without changing tier list.
+
     updateUser: async (parent, { email, password }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
@@ -179,13 +114,35 @@ const resolvers = {
           }
         );
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new GraphQLError('You need to be logged in!');
+    },
+
+    updateDailySliders: async (
+      parent,
+      { energy, fun, selfCare, social, stress, lastDateSlidersUpdated },
+      context
+    ) => {
+      console.log(context.auth);
+      if (context.auth.user) {
+        return User.findOneAndUpdate(
+          { _id: context.auth.user._id },
+          {
+            energy: energy,
+            fun: fun,
+            selfCare: selfCare,
+            social: social,
+            stress: stress,
+            lastDateSlidersUpdated: lastDateSlidersUpdated,
+          }
+        );
+      }
+      throw new GraphQLError('thrown');
     },
 
     // updateDailyQuests: async (parent, { dailyQuests }, context) => {
-    //   if (context.user) {
+    //   if (context.auth.user) {
     //     return User.findOneAndUpdate(
-    //       { _id: context.user._id },
+    //       { _id: context.auth.user._id },
     //       {
     //         dailyQuests: [Quest],
     //       }

@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 const SignIn = () => {
   let navigate = useNavigate();
   let location = useLocation();
-  let from = location.state?.from?.pathname || '/roster';
+  let from = location.state?.from?.pathname || '/landing';
   const [loginCredentials, setCredentials] = useState({
     email: '',
     password: '',
@@ -27,14 +27,6 @@ const SignIn = () => {
       });
       if (data.login.token) {
         localStorage.setItem('id_token', data.login.token);
-      }
-      if (data.login.user._id) {
-        localStorage.setItem(
-          'characters',
-          JSON.stringify(data.login.user.characters)
-        );
-        // navigate(from, { replace: true });
-        window.location.assign('/');
       }
     }
   };

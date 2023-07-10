@@ -9,7 +9,7 @@ const typeDefs = gql`
     social: Int
     fun: Int
     selfCare: Int
-    lastDaySlidersUpdated: String
+    lastDateSlidersUpdated: String
     dailyQuests: [ID]
   }
 
@@ -71,16 +71,15 @@ const typeDefs = gql`
 
     removeUser(userId: ID!): User
 
-    updateUser(
-      email: String
-      password: String!
+    updateUser(email: String, password: String!): User
+
+    updateDailySliders(
       stress: Int
       energy: Int
       social: Int
       fun: Int
       selfCare: Int
       lastDateSlidersUpdated: String
-      dailyQuests: [ID]
     ): User
   }
 `;

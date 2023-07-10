@@ -28,7 +28,7 @@ const userSchema = new Schema(
     selfCare: {
       type: Number,
     },
-    lastDaySlidersUpdated: {
+    lastDateSlidersUpdated: {
       type: Date,
     },
     currentQuests: [{ type: Schema.Types.ObjectId, ref: 'Quest' }],

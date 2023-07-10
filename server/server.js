@@ -9,7 +9,7 @@ import dotenv from 'dotenv';
 import typeDefs from './schemas/typeDefs.js';
 import resolvers from './schemas/resolvers.js';
 import db from './config/connection.js';
-import { auth } from './utils/auth.js';
+import auth from './utils/auth.js';
 const PORT = process.env.PORT || 3001;
 const app = express();
 const httpServer = http.createServer(app);
@@ -25,7 +25,9 @@ app.use(
   cors(),
   json(),
   expressMiddleware(server, {
-    context: async ({ req }) => ({ token: req.headers.token }),
+    context: async ({ req }) => ({
+      auth: auth.authMiddleware(req),
+    }),
   })
 );
 
@@ -38,6 +40,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 }
+// app.use('/public', express.static(path.join(__dirname, '../client/public')));
 
 db.once('open', () => {
   app.listen(PORT, () => {

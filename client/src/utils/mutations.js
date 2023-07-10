@@ -30,13 +30,13 @@ export const ADD_BLOGPOST = gql`
     }
   }
 `;
-export const UPDATE_USER = gql`
+export const UPDATE_DAILY_SLIDERS = gql`
   mutation updateDailySliders(
-    $stress: Num!
-    $energy: Num!
-    $social: Num!
-    $fun: Num!
-    $selfCare: Num!
+    $stress: Int!
+    $energy: Int!
+    $social: Int!
+    $fun: Int!
+    $selfCare: Int!
     $lastDateSlidersUpdated: String!
   ) {
     updateDailySliders(

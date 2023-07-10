@@ -1,14 +1,14 @@
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { QUESTS } from '../../utils/queries';
+import { ME } from '../../utils/queries';
 const Quests = () => {
-  const { loading, data, error } = useQuery(QUESTS, {});
+  const { loading, data, error } = useQuery(ME, {});
   if (loading) return 'Fetching your Quests';
   if (error) return 'Crit failure, try again';
 
-  const quests = data?.quests || [];
-  console.log(quests);
+  const me = data?.me || [];
+  console.log(me);
   return (
     <div className="Landing Page">
       <h1>QUESTS PAGE</h1>
@@ -24,14 +24,10 @@ const Quests = () => {
       <div>
         <Link to="/signup">SIGNUP</Link>
       </div>
-      {quests.map((quest) => {
-        return (
-          <div>
-            <p>{quest.title}</p>
-            <p>{quest.contents}</p>
-          </div>
-        );
-      })}
+      <div>
+        <p>{me._id}</p>
+        {/* <p>{quest.contents}</p> */}
+      </div>
     </div>
   );
 };

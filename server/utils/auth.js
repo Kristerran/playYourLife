@@ -4,18 +4,17 @@ import jwt from 'jsonwebtoken';
 const secret = 'mysecretsshhhhh';
 const expiration = '2h';
 
-export const auth = {
+const auth = {
   // function for our authenticated routes
-  authMiddleware: function ({ req }) {
+  authMiddleware: function (req) {
     // allows token to be sent via  req.query or headers
-    let token = req.headers.authorization || req.body.token || req.query.token;
+    let token = req.headers.authorization || req.token || req.query.token;
     console.log('This is your token: ' + token);
-    // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
       token = token.split(' ').pop().trim();
     }
-
     if (!token) {
+      console.log('I aint got no token fam');
       return req;
     }
 
@@ -35,3 +34,4 @@ export const auth = {
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
 };
+export default auth;
