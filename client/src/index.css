@@ -11,4 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+.Landing {
+  margin: 0;
+  height: 300vh;
+  background-image: url("../public/Rectangle\ 13.svg");
+}
+h1 {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+margin: 0;
+}

@@ -5,7 +5,7 @@ import Auth from '../../utils/auth';
 const Landing = () => {
   if (Auth.loggedIn())
     return (
-      <div className="Landing Page">
+      <div className="Landing">
         <h1>WELCOME TO PYL</h1>
         <div>
           <Link to="/sliders">SLIDERS</Link>

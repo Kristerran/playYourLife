@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../../utils/mutations';
-import { useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { useNavigate, useLocation, Navigate, redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 const SignIn = () => {
@@ -31,7 +31,7 @@ const SignIn = () => {
     }
   };
   return (
-    <div className="Landing Page">
+    <div className="Signin">
       <h1>SIGN IN PAGE</h1>
       <div>
         <Link to="/">LANDING</Link>

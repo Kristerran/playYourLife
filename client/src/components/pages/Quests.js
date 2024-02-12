@@ -10,7 +10,7 @@ const Quests = () => {
   const me = data?.me || [];
   console.log(me);
   return (
-    <div className="Landing Page">
+    <div className="Quests">
       <h1>QUESTS PAGE</h1>
       <div>
         <Link to="/sliders">SLIDERS</Link>
@@ -19,14 +19,7 @@ const Quests = () => {
         <Link to="/">LANDING</Link>
       </div>
       <div>
-        <Link to="/signin">SIGNIN</Link>
-      </div>
-      <div>
-        <Link to="/signup">SIGNUP</Link>
-      </div>
-      <div>
-        <p>{me._id}</p>
-        {/* <p>{quest.contents}</p> */}
+        <p>{me.currentQuests}</p>
       </div>
     </div>
   );

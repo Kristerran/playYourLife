@@ -16,13 +16,22 @@ const Sliders = () => {
       alignItems: 'center',
       justifyContent: 'center',
     },
-    sliderStyle: {
+    sliderLabelStyle: {
       height: '40vh',
-      maxWidth: '20vw',
-      // paddingBottom: '5vh',
+      width: '20vw',
+      padding: '5vw',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'spaceBetween',
+      alignItems: 'center',
+      justifyContent: 'flexStart',
+      backgroundRepeat: 'no-repeat',
+      backgroundImage: 'url("../group7.svg")',
+      backgroundPosition: 'center',
+      backgroundSize: '100%',
+    },
+    sliderStyle: {
+      height: '50%',
+      width: '100%',
     },
     inputStyle: {
       marginTop: '40px',
@@ -127,19 +136,13 @@ const Sliders = () => {
       <div>
         <Link to="/quests">QUESTS</Link>
       </div>
-      <div>
-        <Link to="/signin">SIGNIN</Link>
-      </div>
-      <div>
-        <Link to="/signup">SIGNUP</Link>
-      </div>
       <h3>Before we embark on our journey today, take a moment.</h3>
       <h3>How are you feeling today?</h3>
       <div className="sliderContainer" style={styles.sliderContainerStyle}>
         {/* Range sliders for user to choose "stats" for the day. Values are stored in "slider values" state.*/}
-        <div className="stressSlider" style={styles.sliderStyle}>
-          <h5>Stress</h5>
+        <div className="stressSlider" style={styles.sliderLabelStyle}>
           <Slider
+            style={styles.sliderStyle}
             min={0}
             max={200}
             aria-label="Stress"
@@ -149,10 +152,9 @@ const Sliders = () => {
             value={sliderValues.stress}
           />
         </div>
-        <div className="energySlider" style={styles.sliderStyle}>
-          <h5>Energy</h5>
-
+        <div className="energySlider" style={styles.sliderLabelStyle}>
           <Slider
+            style={styles.sliderStyle}
             min={0}
             max={200}
             aria-label="Energy"
@@ -162,21 +164,21 @@ const Sliders = () => {
             value={sliderValues.energy}
           />
         </div>
-        <div className="socialSlider" style={styles.sliderStyle}>
-          <h5>Social</h5>
+        <div className="socialSlider" style={styles.sliderLabelStyle}>
           <Slider
+            style={styles.sliderStyle}
             min={0}
             max={200}
-            aria-label="Energy"
+            aria-label="Social"
             orientation="vertical"
             onChange={onChange}
             name="social"
             value={sliderValues.social}
           />
         </div>
-        <div className="funSlider" style={styles.sliderStyle}>
-          <h5>Fun</h5>
+        <div className="funSlider" style={styles.sliderLabelStyle}>
           <Slider
+            style={styles.sliderStyle}
             min={0}
             max={200}
             aria-label="Fun"
@@ -186,9 +188,9 @@ const Sliders = () => {
             value={sliderValues.fun}
           />
         </div>
-        <div className="selfCareSlider" style={styles.sliderStyle}>
-          <h5>Self Care</h5>
+        <div className="selfCareSlider" style={styles.sliderLabelStyle}>
           <Slider
+            style={styles.sliderStyle}
             min={0}
             max={200}
             aria-label="Self Care"

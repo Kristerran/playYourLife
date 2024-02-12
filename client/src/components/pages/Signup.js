@@ -36,7 +36,7 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="Landing Page">
+    <div className="Signin">
       <h1>SIGN UP PAGE</h1>
       <div>
         <Link to="/signin">SIGNIN</Link>
